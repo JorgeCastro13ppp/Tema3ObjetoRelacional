@@ -32,7 +32,7 @@ public class MenuEj13 {
 
             switch (opcion) {
                 case 1 -> menuAlta(sc);
-                case 2 -> System.out.println("Modificar (pendiente)");
+                case 2 -> menuModificar(sc);
                 case 3 -> menuBaja(sc);
                 case 4 -> aplicarVacuna(sc);
                 case 0 -> System.out.println("Saliendo del programa...");
@@ -88,6 +88,25 @@ public class MenuEj13 {
             default -> System.out.println("Opción incorrecta");
         }
     }
+    
+    public static void menuModificar(Scanner sc) {
+
+        System.out.println("\n--- MODIFICAR ---");
+        System.out.println("1. Propietario (dirección)");
+        System.out.println("2. Mascota (datos básicos)");
+        System.out.println("0. Volver");
+        System.out.print("Opción: ");
+
+        int opcion = Integer.parseInt(sc.nextLine());
+
+        switch (opcion) {
+            case 1 -> modificarPropietario(sc);
+            case 2 -> modificarMascota(sc);
+            case 0 -> System.out.println("Volviendo...");
+            default -> System.out.println("Opción incorrecta");
+        }
+    }
+
 
 
     // ---------- EJERCICIO 8 ----------
@@ -263,6 +282,86 @@ public class MenuEj13 {
 
             pstMascotas.close();
             pstProp.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modificarPropietario(Scanner sc) {
+
+        try (Connection conn = getConexion()) {
+
+            System.out.print("DNI del propietario: ");
+            String dni = sc.nextLine();
+
+            System.out.print("Nueva calle: ");
+            String calle = sc.nextLine();
+
+            System.out.print("Nuevo número: ");
+            int numero = Integer.parseInt(sc.nextLine());
+
+            System.out.print("Nueva población: ");
+            String poblacion = sc.nextLine();
+
+            System.out.print("Nuevo CP: ");
+            String cp = sc.nextLine();
+
+            String direccion = "('" + calle + "', " + numero + ", '" + poblacion + "', '" + cp + "')";
+
+            String sql = "UPDATE propietario SET direccion = " + direccion + " WHERE dni = ?";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, dni);
+
+            int filas = pst.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("Dirección del propietario actualizada");
+            } else {
+                System.out.println("No existe ningún propietario con ese DNI");
+            }
+
+            pst.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void modificarMascota(Scanner sc) {
+
+        try (Connection conn = getConexion()) {
+
+            System.out.print("ID de la mascota: ");
+            int id = Integer.parseInt(sc.nextLine());
+
+            System.out.print("Nuevo nombre: ");
+            String nombre = sc.nextLine();
+
+            System.out.print("Nueva especie: ");
+            String especie = sc.nextLine();
+
+            System.out.print("Nueva raza: ");
+            String raza = sc.nextLine();
+
+            String sql = "UPDATE mascota SET nombre = ?, especie = ?, raza = ? WHERE id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, nombre);
+            pst.setString(2, especie);
+            pst.setString(3, raza);
+            pst.setInt(4, id);
+
+            int filas = pst.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("Mascota actualizada correctamente");
+            } else {
+                System.out.println("No existe ninguna mascota con ese ID");
+            }
+
+            pst.close();
 
         } catch (Exception e) {
             e.printStackTrace();
