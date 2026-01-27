@@ -43,6 +43,17 @@ public class Ej16 {
      *     WHERE id = p_id;
      * END;
      * $$ LANGUAGE plpgsql;
+     * 
+     * C:\Windows\system32>"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" ^
+		 -U postgres ^
+		 -F c ^
+		 -d mascotas ^
+		 -f C:\backup_mascotas.backup
+		
+		C:\Windows\system32>"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -U postgres -d mascotas > C:\backup_mascotas.sql
+		Contraseña:
+
+     * 
      */
 
     // -------- MAIN CON MENÚ --------
