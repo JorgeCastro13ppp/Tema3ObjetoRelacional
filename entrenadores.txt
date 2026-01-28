@@ -1,0 +1,2 @@
+123456789A;Luis;Lopez Sanchez;yoga;1200;500; 
+987654321Z;Ana;Martin Wer;Cardio;1300;600;

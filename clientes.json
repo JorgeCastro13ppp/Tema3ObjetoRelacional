@@ -1,0 +1,14 @@
+[
+{
+"dni": "11111111A",
+"nombre": "Juan",
+"apellidos": "Pérez López",
+"numerocliente": 1,
+"rutinas": ["Cardio", "Pesas", "Yoga"] },
+{
+"dni": "22222222B",
+"nombre": "María",
+"apellidos": "Gómez Ruiz",
+"numerocliente": 2,
+"rutinas": ["Yoga", "Pilates"] }
+]
